@@ -1,0 +1,40 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, sans-serif; background: #f5f6f8; color: #1d1d1f; }
+main { max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; }
+
+header h1 { margin: 0; color: #0b6e4f; }
+.pergunta { color: #555; margin: 4px 0 12px; }
+
+input, select, textarea, button { font: inherit; padding: 8px 10px; border-radius: 6px; border: 1px solid #ccc; }
+button { background: #0b6e4f; color: #fff; border: none; cursor: pointer; }
+button:hover { opacity: .9; }
+
+.aviso { background: #e3f4ec; padding: 10px; border-radius: 6px; cursor: pointer; }
+.aviso.erro { background: #fde8e8; color: #9b1c1c; }
+
+.painel { background: #fff; padding: 16px; border-radius: 10px; border-left: 4px solid #0b6e4f; margin: 16px 0; }
+.painel h2 { margin: 0 0 4px; font-size: 1.1rem; }
+.painel ol { margin: 8px 0 0; padding-left: 20px; }
+
+nav { display: flex; gap: 6px; flex-wrap: wrap; margin: 16px 0; }
+nav button { background: #fff; color: #0b6e4f; border: 1px solid #0b6e4f; }
+nav button.ativo { background: #0b6e4f; color: #fff; }
+
+article { background: #fff; padding: 14px; border-radius: 10px; margin-bottom: 10px; }
+.linha { display: flex; gap: 14px; align-items: center; cursor: pointer; }
+.linha h3 { margin: 0; font-size: 1rem; }
+.linha p { margin: 2px 0 0; color: #555; }
+.contador { min-width: 64px; text-align: center; font-size: 1.4rem; font-weight: 700; color: #0b6e4f; }
+.contador small { display: block; font-size: .7rem; font-weight: 400; color: #777; }
+article > button { margin-top: 10px; }
+
+.tag { font-size: .75rem; background: #eef1f4; padding: 2px 6px; border-radius: 4px; margin-left: 4px; }
+.detalhe { border-top: 1px solid #eee; margin-top: 10px; padding-top: 6px; }
+.detalhe h4 { margin: 8px 0 4px; }
+.vazio { color: #777; font-size: .9rem; }
+
+form { display: flex; gap: 8px; flex-wrap: wrap; }
+.detalhe form input { flex: 1; }
+.relato { background: #fff; padding: 16px; border-radius: 10px; margin-top: 24px; }
+.relato h2 { margin: 0; font-size: 1.1rem; }
+.relato form { flex-direction: column; }

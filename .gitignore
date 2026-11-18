@@ -1,0 +1,5 @@
+# builds das aplicações de exemplo
+sample-apps/api-springboot/target/
+sample-apps/app-react/node_modules/
+sample-apps/app-react/dist/
+.DS_Store

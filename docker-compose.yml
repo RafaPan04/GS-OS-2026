@@ -1,0 +1,62 @@
+# =============================================================================
+# CitizenTech - cria as "VMs" (containers com Linux + systemd) e a rede.
+#
+# Imagem ubi9/ubi-init: Red Hat UBI 9 que já inicia com o systemd (/sbin/init).
+# Nenhum software da aplicação é instalado aqui: isso é feito pelos scripts.
+# =============================================================================
+name: citizentech
+
+services:
+
+  api:
+    image: redhat/ubi9-init:latest
+    container_name: api
+    hostname: api                         
+    domainname: citizentech.internal      
+    privileged: true                       
+    cgroup: host                           
+    tmpfs:
+      - /run
+      - /run/lock
+    volumes:
+      - api-logs:/var/log/citizentech    
+    networks:
+      citizentech-net:
+        ipv4_address: 192.28.0.20          
+        aliases:
+          - api.citizentech.internal      
+    restart: unless-stopped             
+
+
+  app:
+    image: redhat/ubi9-init:latest
+    container_name: app
+    hostname: app
+    domainname: citizentech.internal
+    privileged: true
+    cgroup: host
+    tmpfs:
+      - /run
+      - /run/lock
+    volumes:
+      - app-logs:/var/log/citizentech
+    networks:
+      citizentech-net:
+        ipv4_address: 192.28.0.30
+        aliases:
+          - app.citizentech.internal
+    ports:
+      - "127.0.0.1:8080:80"                
+    restart: unless-stopped
+
+networks:
+  citizentech-net:
+    name: citizentech-net
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.28.0.0/24
+
+volumes:
+  api-logs:
+  app-logs:

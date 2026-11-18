@@ -1,0 +1,30 @@
+
+
+[Unit]
+Description=CitizenTech - API Spring Boot
+After=network.target
+
+[Service]
+User=springboot
+Group=citizentech
+EnvironmentFile=/etc/citizentech/api.env
+
+# -Xmx256m: a JVM usa no máximo 256 MB para os objetos (heap)
+# -XX:+ExitOnOutOfMemoryError: se a memória acabar, a JVM ENCERRA em vez de
+ExecStart=/usr/bin/java -Xmx256m -XX:+ExitOnOutOfMemoryError -jar /opt/citizentech/api/app.jar
+
+# mantém a API sempre rodando
+Restart=always
+RestartSec=5
+SuccessExitStatus=143
+
+# MemoryMax: passou disso, o kernel mata o processo (e o systemd reinicia)
+MemoryMax=512M
+CPUQuota=100%
+
+# Armazenar histórico de logs
+StandardOutput=append:/var/log/citizentech/api.log
+StandardError=append:/var/log/citizentech/api.log
+
+[Install]
+WantedBy=multi-user.target

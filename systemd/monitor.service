@@ -1,0 +1,22 @@
+# Serviço de monitoramento CitizenTech
+
+[Unit]
+Description=CitizenTech - monitor de CPU, memoria e disco
+After=network.target
+
+[Service]
+# roda com usuário sem privilégios
+User=monitor
+Group=citizentech
+ExecStart=/opt/citizentech/scripts/monitor.sh
+
+# se o processo morrer por qualquer motivo, o systemd reinicia em 5 segundos
+Restart=always
+RestartSec=5
+
+# tudo que o script imprime vai para o arquivo de log (no volume)
+StandardOutput=append:/var/log/citizentech/monitor.log
+StandardError=append:/var/log/citizentech/monitor.log
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,30 @@
+
+# Substitui o nginx.service que vem no pacote, para ter as mesmas garantias
+# da API: reinício automático, limites de recursos e log no volume.
+
+[Unit]
+Description=CitizenTech - front (nginx)
+After=network.target
+
+[Service]
+ExecStartPre=/usr/sbin/nginx -t -q
+ExecStart=/usr/sbin/nginx -g "daemon off;"
+ExecReload=/bin/kill -HUP $MAINPID
+
+# O processo principal do nginx roda como root só para abrir a porta 80.
+# Quem atende as requisições são os processos "worker", com o usuário
+# "nginx" (linha "user nginx;" no nginx.conf).
+
+Restart=always
+RestartSec=5
+
+# MemoryMax: passou disso, o kernel mata o processo (e o systemd reinicia)
+MemoryMax=128M
+CPUQuota=50%
+
+# Armazenar histórico de logs
+StandardOutput=append:/var/log/citizentech/app.log
+StandardError=append:/var/log/citizentech/app.log
+
+[Install]
+WantedBy=multi-user.target
